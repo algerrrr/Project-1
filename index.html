@@ -26,30 +26,32 @@
         </div>
     </header>
 
-    <main id="movie-results">
-        <div>
-            <div>
-                <h3>Genres</h3>
-                <ul id="with_genres" class="multi_select text" name="with_genres[]">
-                    <li data-value="28">
-                        <a class="no_click">Action</a>
-                    </li>
-                    <li data-value="35">
-                        <a class="no_click">Comedy</a>
-                    </li>
-                    <li data-value="18">
-                        <a class="no_click">Drama</a>
-                    </li>
-                    <li data-value="878">
-                        <a class="no_click">Science Fiction</a>
-                    </li>
-                </ul>
-            </div>
 
-            <div></div>
-        </div>
-        <!-- Movie search results will be displayed here -->
-    </main>
+    <div class="container">
+        <aside id="sidebar">
+            <div class="filter">
+            <h3>Genres</h3>
+            <ul id="with_genres" class="multi_select text" name="with_genres[]">
+                <li id="genre" data-value="28">
+                    <a class="no_click">Action</a>
+                </li>
+                <li id="genre" data-value="35">
+                    <a class="no_click">Comedy</a>
+                </li>
+                <li id="genre" data-value="18">
+                    <a class="no_click">Drama</a>
+                </li>
+                <li id="genre" data-value="878">
+                    <a class="no_click">Science Fiction</a>
+                </li>
+            </ul>
+            </div>
+        </aside>
+
+        <main id="movie-results"></main>
+    </div>
+        
+    
 
     <footer>
         <p>&copy; 2023 Streamer</p>
