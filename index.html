@@ -3,42 +3,58 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./styles.css">
-    <title>Document</title>
+    <title>Streamer - Stream Your Favorites</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <header>
+        <div class="tmdb-logo">
+            <img src="tmdb-logo.png" alt="TMDb Logo">
+        </div>
         <nav>
-            <div class="logo">My Streaming Platform</div>
-            <form id="search-form">
-                <input type="text" id="search-input" placeholder="Search...">
-                <button type="submit">Search</button>
-            </form>
             <ul class="nav-links">
-                <li><a href="#">Home</a></li>
-                <li><a href="#">TV Shows</a></li>
                 <li><a href="#">Movies</a></li>
-                <li><a href="#">My List</a></li>
+                <li><a href="#">TV Shows</a></li>
+                <li><a href="#">People</a></li>
             </ul>
         </nav>
+        <div class="search-bar">
+            <form id="search-form">
+                <input type="text" id="search-input" placeholder="Search for movies, TV shows, and more...">
+                <button id="search-button" type="submit">Search</button>
+            </form>
+        </div>
     </header>
 
-    <main>
-        <section class="banner">
-            <div class="content">
-                <h1>Welcome to My Streaming Platform</h1>
-                <p>Watch unlimited TV shows and movies.</p>
+    <main id="movie-results">
+        <div>
+            <div>
+                <h3>Genres</h3>
+                <ul id="with_genres" class="multi_select text" name="with_genres[]">
+                    <li data-value="28">
+                        <a class="no_click">Action</a>
+                    </li>
+                    <li data-value="35">
+                        <a class="no_click">Comedy</a>
+                    </li>
+                    <li data-value="18">
+                        <a class="no_click">Drama</a>
+                    </li>
+                    <li data-value="878">
+                        <a class="no_click">Science Fiction</a>
+                    </li>
+                </ul>
             </div>
-        </section>
 
-        <section class="movies">
-            <!-- Add movie or TV show cards here -->
-        </section>
+            <div></div>
+        </div>
+        <!-- Movie search results will be displayed here -->
     </main>
 
     <footer>
-        <p>&copy; 2023 My Streaming Platform</p>
+        <p>&copy; 2023 Streamer</p>
     </footer>
+
     <script src="script.js"></script>
 </body>
 </html>
