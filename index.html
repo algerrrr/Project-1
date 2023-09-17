@@ -9,7 +9,7 @@
 <body>
     <header>
         <div class="tmdb-logo">
-            <img src="tmdb-logo.png" alt="TMDb Logo">
+            <!-- <img src="tmdb-logo.png" alt="TMDb Logo"> -->
         </div>
         <nav>
             <ul class="nav-links">
@@ -30,8 +30,8 @@
     <div class="container">
         <aside id="sidebar">
             <div class="filter">
-            <h3>Genres</h3>
-            <ul id="with_genres" class="multi_select text" name="with_genres[]">
+            <h3>Search by Genres</h3>
+            <!-- <ul id="with_genres" class="multi_select text" name="with_genres[]">
                 <li id="genre" data-value="28">
                     <a class="no_click">Action</a>
                 </li>
@@ -44,13 +44,19 @@
                 <li id="genre" data-value="878">
                     <a class="no_click">Science Fiction</a>
                 </li>
-            </ul>
+            </ul> -->
+            <select name="genre" id="genre">
+                <option value="action">ACTION</option>
+                <option value="comedy">COMEDY</option>
+                <option value="drama">DRAMA</option>
+                <option value="science fiction">SCIENCE FICTION</option>
+            </select>
             </div>
         </aside>
 
         <main id="movie-results"></main>
     </div>
-        
+      
     
 
     <footer>

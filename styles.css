@@ -165,21 +165,15 @@ footer {
 .movie-details-div{
     position: absolute;
     height: fit-content;
-    width: 80%;
-    background-color: lightgray;
-    top: 10%;
-    left: 10%;
     border-radius: 10px;
-
     display: flex;
     gap: 20px;
     padding:20px;
-
     background-color: #fefefe;
     margin: 15% auto; /* 15% from the top and centered */
     padding: 20px;
     border: 1px solid #888;
-    width: 80%; /* Could be more or less, depending on screen size */
+    width: 90%; /* Could be more or less, depending on screen size */
 
 }
 
@@ -189,6 +183,10 @@ footer {
 
 .movie-info-div{
     width: 70%;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
 
 .outer-modal{
@@ -201,6 +199,28 @@ footer {
     overflow: auto; /* Enable scroll if needed */
     background-color: rgb(0,0,0); /* Fallback color */
     background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.closebtnP{
+
+    width: 100%;
+
+    display: flex;
+    justify-content: flex-end;
+   
+}
+.close-btn{
+    font-size: 25px;
+    padding: 5px 10px;
+    height: 30px;
+   width: 30px;
+    border: 2px solid black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
 }
 
 
