@@ -20,6 +20,8 @@ async function searchMovies(query) {
     const response = await fetch(`https://api.themoviedb.org/3/search/movie?query=${query}&include_adult=false&language=en-US&page=1`, options)
     const data = await response.json();
     showElement(data.results)
+    console.log('results',data.results)
+
 
 }
 function showElement(results) {
@@ -29,10 +31,10 @@ function showElement(results) {
     results.forEach(({ title, poster_path }) => {
         const apiKey = '726246bb7ec5fbb1a80d0e538bfee10a'
         const li = document.createElement('li');
-        
+ 
         li.classList.add('movie');
         const link = document.createElement('a');
-        link.href = `https://api.themoviedb.org/3/search/multi?api_key=${apiKey}&query=${title}`;
+        // link.href = `https://api.themoviedb.org/3/search/multi?api_key=${apiKey}&query=${title}`;
 
         
         const image = document.createElement('img');
@@ -46,6 +48,46 @@ function showElement(results) {
         li.append(link);
         div.append(li);
     });
+
+    // 
+    div.addEventListener('click',function(e){
+        console.log(e.target.src)
+        let outerModal = document.createElement('div')
+        outerModal.classList.add('outer-modal')
+        let detailsDiv = document.createElement('div')
+        detailsDiv.classList.add('movie-details-div')
+        let span = document.createElement('span')
+        span.innerHTML = '&times;'
+        span.addEventListener('click',function(){
+            outerModal.style.display = 'none'
+        })
+        let movieInfoDiv = document.createElement('div')
+        movieInfoDiv.classList.add('movie-info-div')
+       
+        let chosenItem = results.filter((element)=>{
+            return 'https://image.tmdb.org/t/p/w185/'+ element.poster_path === e.target.src
+        })
+        console.log(chosenItem)
+
+        // create elements inside the details div
+        let detailsImg = document.createElement('img')
+        detailsImg.src = 'https://image.tmdb.org/t/p/w185/'+chosenItem[0].poster_path
+
+        let h3 = document.createElement('h3')
+        let p = document.createElement('p')
+
+        h3.innerText = 'Overview'
+        p.innerText = chosenItem[0].overview
+        movieInfoDiv.append(span,h3,p)
+        
+        // add to the detials div
+        
+        detailsDiv.append(detailsImg,movieInfoDiv)
+        outerModal.append(detailsDiv)
+        main.append(outerModal)
+    })
+    // 
+
 
     // Append the unordered list to the main element
     main.append(div);
