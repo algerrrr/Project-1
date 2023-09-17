@@ -1,5 +1,5 @@
 const main = document.getElementById("movie-results");
-
+let content = "movie"
 const options = {
   method: "GET",
   headers: {
@@ -53,6 +53,7 @@ async function searchLatestMovies(){
 
 //TV Shows button
 document.getElementById('popular-tvShows').addEventListener('click', function (e){
+    content = "tv"
     searchLatestTvShows()
 })
 
@@ -163,7 +164,7 @@ function showElement(results) {
 async function getMovieDetails(id) {
 
   let response = await fetch(
-    `https://api.themoviedb.org/3/movie/${id}?language=en-US`,
+    `https://api.themoviedb.org/3/${content}/${id}?language=en-US`,
     options
   );
  
@@ -190,7 +191,12 @@ async function getMovieDetails(id) {
 
   // create title
   const title = document.createElement("h2");
+  if(content = "movie"){
   title.innerText = chosenItem.original_title;
+  } 
+  else if(content="tv"){
+    title.innerText = chosenItem.name;
+  }
 
   // create tagline
   const taglineDiv = document.createElement("div");
