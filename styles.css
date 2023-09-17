@@ -24,9 +24,10 @@ header {
     z-index: 100;
 }
 
-.tmdb-logo img {
+.logo {
     max-width: 100px;
-    height: auto;
+    font-size: 50px;
+    font-family: 'Courier New', Courier, monospace;
 }
 
 .nav-links ul {
@@ -221,6 +222,7 @@ footer {
     justify-content: center;
     align-items: center;
     border-radius: 10px;
+    cursor: pointer;
 }
 
 

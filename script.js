@@ -9,38 +9,107 @@ const options = {
   },
 };
 
+//Search bar
 document.getElementById("search-form").addEventListener("submit", function (e) {
   e.preventDefault(); // Prevent the default form submission
 
   const query = document.getElementById("search-input").value;
 
-  // Call a function to fetch and display movie search results from the TMDb API
   searchMovies(query);
 });
 
 async function searchMovies(query) {
-    main.innerHTML = ""
+main.innerHTML = ""
   const response = await fetch(`https://api.themoviedb.org/3/search/movie?query=${query}&include_adult=false&language=en-US&page=1`,options);
   const data = await response.json();
   showElement(data.results);
 }
-document.getElementById('genre').addEventListener('change', function (e) {
-    const genre = document.getElementById('genre')
-    console.log(genre.value)
-    fetchByGenre(genre.value)
+
+//Movie button
+document.getElementById('popular-movies').addEventListener('click', function (e){
+    searchLatestMovies()
 })
 
-async function fetchByGenre(genre) {
+async function searchLatestMovies(){
     main.innerHTML = ""
-  const response = await fetch(`https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.asc&with_genres=${genre}`, options)
-  const data = await response.json();
-  showElement(data.results);
+    const response = await fetch(`https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc`,options);
+    const data = await response.json();
+    console.log(data.results)
+    showElement(data.results);
+
 }
 
+//TV Shows button
+document.getElementById('popular-tvShows').addEventListener('click', function (e){
+    searchLatestTvShows()
+})
+
+async function searchLatestTvShows(){
+    main.innerHTML = ""
+    const response = await fetch(`https://api.themoviedb.org/3/discover/tv?include_adult=false&include_null_first_air_dates=false&language=en-US&page=1&sort_by=popularity.desc`,options);
+    const data = await response.json();
+    console.log(data)
+    showElement(data.results);
+
+}
+//Search by genre
+document.getElementById('genre').addEventListener('change', function (e){
+    const genreValue = e.target.value;
+    console.log(genreValue)
+    const genres = {
+        "genres": [
+          {
+            "id": 28,
+            "name": "action"
+          },
+    
+          {
+            "id": 35,
+            "name": "comedy"
+          },
+    
+          {
+            "id": 18,
+            "name": "drama"
+          },
+    
+          {
+            "id": 878,
+            "name": "science fiction"
+          },
+        ]
+    };
+        
+    const genre = genres.genres.find(g => g.name == genreValue);
+        //   return genre && element.genre_ids.includes(genre.id);
+        console.log(genre.id)
+        searchByGenre(genre.id)
+        
+
+})
+
+async function searchByGenre(genreId) {
+    main.innerHTML = "";
+    const response = await fetch(
+      "https://api.themoviedb.org/3/discover/movie?include_adult=false&include_null_first_air_dates=false&language=en-US&page=1&sort_by=popularity.desc",
+      options
+    );
+    const data = await response.json();
+    console.log(data);
+  
+
+    const filteredResult = data.results.filter((video) =>
+      video.genre_ids.includes(genreId)
+    );
+    showElement(filteredResult);
+  }
+
+
+//Show cards
 function showElement(results) {
   const div = document.createElement("div");
   div.classList.add("content");
-  results.forEach(({ title, poster_path }) => {
+  results.forEach(({ title, poster_path, name }) => {
     const apiKey = "726246bb7ec5fbb1a80d0e538bfee10a";
     const li = document.createElement("li");
 
@@ -51,7 +120,7 @@ function showElement(results) {
 
     // Create a text node for the movie title
     const titleText = document.createElement("p");
-    titleText.innerText = title;
+    titleText.innerText = title? title: name;
     link.append(image);
     link.append(titleText);
     li.append(link);
@@ -76,35 +145,6 @@ function showElement(results) {
 }
 
 
-function getPopularMovies() {
-  fetch(
-    "https://api.themoviedb.org/3/trending/movie/day?language=en-US",
-    options
-  )
-    .then((response) => response.json())
-    .then(({ results }) => {
-      const main = document.getElementById("movie-results");
-      const ul = document.createElement("ul");
-
-      results.forEach(({ title }) => {
-        const li = document.createElement("li");
-
-        li.innerText = title;
-        ul.append(li);
-      });
-      main.append(ul);
-    })
-
-    .catch((err) => console.error(err));
-}
-
-//document.getElementById('popular-series').addEventListener('click', getPopularSeries);
-function getPopularSeries() {
-  fetch("https://api.themoviedb.org/3/trending/tv/day?language=en-US", options)
-    .then((response) => response.json())
-    .then((response) => console.log(response))
-    .catch((err) => console.error(err));
-}
 
 async function getMovieDetails(id) {
   const options = {
@@ -120,11 +160,7 @@ async function getMovieDetails(id) {
     `https://api.themoviedb.org/3/movie/${id}?language=en-US`,
     options
   );
-  // .then(response => response.json())
-  // .then(data => {
-  //     return data
-  // })
-  // .catch(err => console.error(err));
+ 
   let chosenItem = await response.json();
   console.log(chosenItem);
 
@@ -222,45 +258,7 @@ runtimeDiv.append(runtimeh3, runtimep);
 }
 
 
-function searchByGenre(results) {
-    const genreSelect = document.getElementById('genre');
-    const genres = {
-      "genres": [
-        {
-          "id": 28,
-          "name": "Action"
-        },
-  
-        {
-          "id": 35,
-          "name": "Comedy"
-        },
-  
-        {
-          "id": 18,
-          "name": "Drama"
-        },
-  
-        {
-          "id": 878,
-          "name": "Science Fiction"
-        },
-      ]
-    };
-  
-    genreSelect.addEventListener('change', function (e) {
-      const genreValue = e.target.value;
-      console.log(genreValue);
-   
-      let filteredResults = results.filter(element => {
-        const genre = genres.genres.find(g => g.name === genreValue);
-        return genre && element.genre_ids.includes(genre.id);
-      });
-      main.innerHTML=""
-   
-      showElement(filteredResults);
-    });
-  }
+
 
 
   
