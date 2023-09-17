@@ -9,7 +9,7 @@ const options = {
   },
 };
 
-
+searchLatestMovies()
 
 //Search bar
 document.getElementById("search-form").addEventListener("submit", function (e) {
@@ -60,7 +60,6 @@ async function searchLatestTvShows(){
 document.getElementById('genre').addEventListener('change', function (e){
     
     const genreValue = e.target.value;
-    console.log(genreValue)
     const genres = {
         "genres": [
           {
@@ -86,8 +85,7 @@ document.getElementById('genre').addEventListener('change', function (e){
     };
         
     const genre = genres.genres.find(g => g.name == genreValue);
-        console.log(genre.id)
-        searchByGenre(genre.id)
+    searchByGenre(genre.id)
         
 
 })
