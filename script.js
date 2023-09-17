@@ -9,6 +9,8 @@ const options = {
   },
 };
 
+
+
 //Search bar
 document.getElementById("search-form").addEventListener("submit", function (e) {
   e.preventDefault(); // Prevent the default form submission
@@ -56,35 +58,35 @@ async function searchLatestTvShows(){
 }
 //Search by genre
 document.getElementById('genre').addEventListener('change', function (e){
+    
     const genreValue = e.target.value;
-   
+    console.log(genreValue)
     const genres = {
         "genres": [
           {
             "id": 28,
-            "name": "action"
+            "name": "Action"
           },
     
           {
             "id": 35,
-            "name": "comedy"
+            "name": "Comedy"
           },
     
           {
             "id": 18,
-            "name": "drama"
+            "name": "Drama"
           },
     
           {
             "id": 878,
-            "name": "science fiction"
+            "name": "Science Fiction"
           },
         ]
     };
         
     const genre = genres.genres.find(g => g.name == genreValue);
-        //   return genre && element.genre_ids.includes(genre.id);
-        
+        console.log(genre.id)
         searchByGenre(genre.id)
         
 
