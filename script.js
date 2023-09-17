@@ -20,9 +20,11 @@ document.getElementById("search-form").addEventListener("submit", function (e) {
 
 async function searchMovies(query) {
 main.innerHTML = ""
-  const response = await fetch(`https://api.themoviedb.org/3/search/movie?query=${query}&include_adult=false&language=en-US&page=1`,options);
-  const data = await response.json();
-  showElement(data.results);
+    for(let page = 1; page < 5; page++) {
+    const response = await fetch(`https://api.themoviedb.org/3/search/movie?query=${query}&include_adult=false&language=en-US&page=${page}`,options);
+    const data = await response.json();
+    showElement(data.results);
+    }
 }
 
 //Movie button
@@ -32,11 +34,11 @@ document.getElementById('popular-movies').addEventListener('click', function (e)
 
 async function searchLatestMovies(){
     main.innerHTML = ""
-    const response = await fetch(`https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc`,options);
+    for(let page = 1; page < 5; page++) {
+    const response = await fetch(`https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=${page}&sort_by=popularity.desc`,options);
     const data = await response.json();
-    console.log(data.results)
     showElement(data.results);
-
+    }
 }
 
 //TV Shows button
@@ -46,16 +48,16 @@ document.getElementById('popular-tvShows').addEventListener('click', function (e
 
 async function searchLatestTvShows(){
     main.innerHTML = ""
-    const response = await fetch(`https://api.themoviedb.org/3/discover/tv?include_adult=false&include_null_first_air_dates=false&language=en-US&page=1&sort_by=popularity.desc`,options);
+    for(let page = 1; page<5; page++){
+    const response = await fetch(`https://api.themoviedb.org/3/discover/tv?include_adult=false&include_null_first_air_dates=false&language=en-US&page=${page}&sort_by=popularity.desc`,options);
     const data = await response.json();
-    console.log(data)
     showElement(data.results);
-
+    }
 }
 //Search by genre
 document.getElementById('genre').addEventListener('change', function (e){
     const genreValue = e.target.value;
-    console.log(genreValue)
+   
     const genres = {
         "genres": [
           {
@@ -82,7 +84,7 @@ document.getElementById('genre').addEventListener('change', function (e){
         
     const genre = genres.genres.find(g => g.name == genreValue);
         //   return genre && element.genre_ids.includes(genre.id);
-        console.log(genre.id)
+        
         searchByGenre(genre.id)
         
 
@@ -90,12 +92,13 @@ document.getElementById('genre').addEventListener('change', function (e){
 
 async function searchByGenre(genreId) {
     main.innerHTML = "";
+    for(let page = 1; page <10; page++){
     const response = await fetch(
-      "https://api.themoviedb.org/3/discover/movie?include_adult=false&include_null_first_air_dates=false&language=en-US&page=1&sort_by=popularity.desc",
+      `https://api.themoviedb.org/3/discover/movie?include_adult=false&include_null_first_air_dates=false&language=en-US&page=${page}&sort_by=popularity.desc`,
       options
     );
     const data = await response.json();
-    console.log(data);
+
   
 
     const filteredResult = data.results.filter((video) =>
@@ -103,7 +106,7 @@ async function searchByGenre(genreId) {
     );
     showElement(filteredResult);
   }
-
+}
 
 //Show cards
 function showElement(results) {
@@ -162,8 +165,6 @@ async function getMovieDetails(id) {
   );
  
   let chosenItem = await response.json();
-  console.log(chosenItem);
-
   let outerModal = document.createElement("div");
   outerModal.classList.add("outer-modal");
   let detailsDiv = document.createElement("div");
